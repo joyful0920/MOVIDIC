@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <header class="bg-gray-200">
+    <div class="container position-sticky z-index-sticky top-0">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-white border-radius-xl mt-4 top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+            <div class="container-fluid px-0">
+              <a class="navbar-brand font-weight-bolder ms-sm-3" href="{% url 'movies:index' %}" rel="tooltip" data-placement="bottom">
+                MOVIDIC
+              </a>
+              <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </span>
+              </button>
+              <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+                <ul class="navbar-nav navbar-nav-hover ms-auto">
+                  <li class="nav-item my-auto ms-3 ms-lg-0 mx-3">
+                    <div class="input-group input-group-dynamic">
+                      <span class="input-group-text text-dark">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                      </span>
+                      <input class="text-dark form-control " placeholder="Search" type="text">
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container mt-7">
+          <div class="row">
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+              <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('https://images.unsplash.com/photo-1616530940355-351fabd9524b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'); background-size: cover; background-position: center;" loading="lazy"></div>
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card d-flex blur justify-content-center shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                  <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <h3 class="text-white text-primary mb-0">New Movie</h3>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form id="create-form" action="{% url 'movies:create' %}" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="card-body p-0 my-3">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">TITLE</label>
+                            <textarea name="title" class="form-control" id="title" rows="1" required="required"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-md-6 ps-md-2">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">AUDIENCE</label>
+                            <input type="number" min="0" class="form-control" name="audience" id="audience" required="required">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">RELEASE DATE</label>
+                            <input type="date" name="release_date" id="release_date" class="form-control" value="연도-월-일" required="required">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold ms-0">GENRE</label>
+                            <select class="form-control" name="genre" id="genre" required="required">
+                              <option selected="selected" disabled="disabled" value="">선택</option>
+                              <option value="코미디">코미디</option>
+                              <option value="공포">공포</option>
+                              <option value="로맨스">로맨스</option>
+                              <option value="액션">액션</option>
+                              <option value="미스터리">미스터리</option>
+                              <option value="예술">예술</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4 ps-md-2">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">SCORE</label>
+                            <input type="number" min="0" step="0.5" max="5" class="form-control" name="score" id="score" required="required">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">POSTER URL</label>
+                            <textarea name="poster_url" class="form-control" id="poster_url" rows="1" reqruied="reqruied"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">COVER URL</label>
+                            <textarea name="cover_url" class="form-control" id="cover_url" rows="1" reqruied="reqruied"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-md-4 ps-md-2">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">TRAILER URL</label>
+                            <textarea name="trailer_url" class="form-control" id="trailer_url" rows="1" reqruied="reqruied"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group mb-0 mt-md-0 mt-4">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label class="fw-bold">DESCRIPTION</label>
+                            <textarea name="description" class="form-control" id="description" rows="7" reqruied="reqruied"></textarea>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 text-start">
+                            <a href="{% url 'movies:index' %}" class="btn bg-gradient-secondary mt-3 mb-0">Back</a>
+                          </div>
+                          <div class="col-md-6 text-end">
+                            <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </header>
+  {% endblock content %}
